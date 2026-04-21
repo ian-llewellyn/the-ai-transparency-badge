@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Transparency Badge Generator</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 16px;
+  }
+  h1 { font-size: 22px; }
+  .section { margin-bottom: 20px; }
+  label { margin-right: 10px; display: inline-block; }
+  textarea {
+    width: 100%;
+    height: 120px;
+    font-family: monospace;
+    margin-top: 10px;
+  }
+  .preview {
+    margin: 20px 0;
+  }
+  button {
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>AI Transparency Badge Generator</h1>
+
+<div class="section">
+  <strong>Categories:</strong><br>
+  <label><input type="checkbox" value="Generation"> Generation</label>
+  <label><input type="checkbox" value="Transformation"> Transformation</label>
+  <label><input type="checkbox" value="Recommendation"> Recommendation</label>
+  <label><input type="checkbox" value="Handling"> Handling</label>
+  <label><input type="checkbox" value="Evaluation"> Evaluation</label>
+  <label><input type="checkbox" value="Simulation"> Simulation</label>
+</div>
+
+<div class="section">
+  <strong>Data Sources:</strong><br>
+  <label><input type="checkbox" value="Model"> Model</label>
+  <label><input type="checkbox" value="Retrieved"> Retrieved</label>
+  <label><input type="checkbox" value="Live"> Live</label>
+  <label><input type="checkbox" value="User"> User</label>
+</div>
+
+<div class="section">
+  <strong>Scope:</strong>
+  <select id="scope">
+    <option value="">None</option>
+    <option>Site-wide</option>
+    <option>Page-specific</option>
+  </select>
+
+  <strong>Timing:</strong>
+  <select id="timing">
+    <option value="">None</option>
+    <option>Runtime</option>
+    <option>Build-time</option>
+  </select>
+</div>
+
+<div class="section">
+  <label>
+    <input type="checkbox" id="noneToggle">
+    No AI (override)
+  </label>
+</div>
+
+<button onclick="generate()">Generate Badge</button>
+
+<div class="preview" id="preview"></div>
+
+<strong>SVG Code:</strong>
+<textarea id="svgOutput"></textarea>
+
+<strong>Text Label:</strong>
+<textarea id="textOutput"></textarea>
+
+<script>
+function generate() {
+  const categories = [...document.querySelectorAll('input[type=checkbox]:checked')]
+    .filter(cb => !["Model","Retrieved","Live","User"].includes(cb.value))
+    .map(cb => cb.value);
+
+  const dataSources = [...document.querySelectorAll('input[type=checkbox]:checked')]
+    .filter(cb => ["Model","Retrieved","Live","User"].includes(cb.value))
+    .map(cb => cb.value);
+
+  const scope = document.getElementById('scope').value;
+  const timing = document.getElementById('timing').value;
+  const none = document.getElementById('noneToggle').checked;
+
+  let text;
+
+  if (none) {
+    text = "AI: None";
+  } else {
+    let parts = [];
+
+    if (categories.length) {
+      parts.push(categories.join(", "));
+    }
+
+    if (dataSources.length) {
+      parts.push("(" + dataSources.join(", ") + ")");
+    }
+
+    let suffix = [scope, timing].filter(Boolean).join(" · ");
+    if (suffix) parts.push("· " + suffix);
+
+    text = "AI: " + (parts.join(" ") || "Unspecified");
+  }
+
+  const rightText = text.replace("AI: ", "") + (none ? "" : " ✓");
+
+  // Dynamic width estimate
+  const width = 40 + rightText.length * 7;
+
+  const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="28" role="img" aria-label="${text}">
+<title>${text}</title>
+
+<rect x="0" y="0" width="40" height="28" fill="#555"/>
+<text x="20" y="18" font-family="system-ui, Arial" font-size="12" fill="#fff" text-anchor="middle">AI</text>
+
+<rect x="40" y="0" width="${width-40}" height="28" fill="${none ? '#fff' : '#4c8bf5'}" ${none ? 'stroke="#555"' : ''}/>
+<text x="${40 + (width-40)/2}" y="18" font-family="system-ui, Arial" font-size="12" fill="${none ? '#333' : '#fff'}" text-anchor="middle">
+${none ? 'None' : rightText}
+</text>
+</svg>`.trim();
+
+  document.getElementById('preview').innerHTML = svg;
+  document.getElementById('svgOutput').value = svg;
+  document.getElementById('textOutput').value = text;
+}
+</script>
+
+</body>
+</html>
