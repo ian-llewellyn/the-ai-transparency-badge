@@ -4,15 +4,52 @@
 <meta charset="UTF-8">
 <title>AI Transparency Badge Generator</title>
 <style>
+  :root {
+    --bg: #f7f7f8;
+    --card: #ffffff;
+    --border: #e2e2e2;
+    --text: #222;
+    --muted: #666;
+  }
+
   body {
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    max-width: 700px;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+  }
+
+  .container {
+    max-width: 760px;
     margin: 40px auto;
     padding: 0 16px;
   }
-  h1 { font-size: 22px; }
-  .section { margin-bottom: 20px; }
+
+  h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  p.subtitle {
+    color: var(--muted);
+    margin-top: 0;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
   label { margin-right: 10px; display: inline-block; }
+
+  .group-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+
   textarea {
     width: 100%;
     height: 120px;
@@ -20,126 +57,232 @@
     margin-top: 10px;
   }
   .preview {
-    margin: 20px 0;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    background: #fafafa;
+    text-align: center;
   }
+
   button {
-    padding: 6px 10px;
+    padding: 8px 12px;
     cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+
+  button.primary {
+    background: #4c8bf5;
+    color: white;
+    border: none;
+  }
+
+  .row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    margin-top: 40px;
+    font-size: 12px;
   }
 </style>
 </head>
 <body>
 
-<h1>AI Transparency Badge Generator</h1>
+<div class="container">
 
-<div class="section">
-  <strong>Categories:</strong><br>
-  <label><input type="checkbox" value="Generation"> Generation</label>
-  <label><input type="checkbox" value="Transformation"> Transformation</label>
-  <label><input type="checkbox" value="Recommendation"> Recommendation</label>
-  <label><input type="checkbox" value="Handling"> Handling</label>
-  <label><input type="checkbox" value="Evaluation"> Evaluation</label>
-  <label><input type="checkbox" value="Simulation"> Simulation</label>
+  <h1>AI Transparency Badge</h1>
+  <p class="subtitle">Generate a simple, self-certified AI usage badge for your site.</p>
+
+  <div class="card">
+    <span class="group-title">Categories</span>
+    <label><input type="checkbox" value="Content Generation"> Content Generation</label>
+    <label><input type="checkbox" value="Content Transformation"> Content Transformation</label>
+    <label><input type="checkbox" value="Vibe Coding"> Vibe Coding</label>
+    <label><input type="checkbox" value="Assisted Coding"> Assisted Coding</label>
+    <label><input type="checkbox" value="Algorithms"> Algorithms</label>
+    <label><input type="checkbox" value="Workflow"> Workflow</label>
+    <label><input type="checkbox" value="Simulation"> Simulation</label>
+  </div>
+
+  <div class="card">
+    <span class="group-title">Data Sources</span>
+    <label><input type="checkbox" value="Model"> Model</label>
+    <label><input type="checkbox" value="Datastores"> Datastores</label>
+    <label><input type="checkbox" value="Internet"> Internet</label>
+    <label><input type="checkbox" value="User"> User</label>
+  </div>
+
+  <div class="card row">
+    <div>
+      <span class="group-title">Scope</span>
+      <select id="scope">
+        <option value="">None</option>
+        <option>Site-wide</option>
+        <option>Page-specific</option>
+        <option>Asset-tagged</option>
+      </select>
+    </div>
+
+    <div>
+      <span class="group-title">Timing</span>
+      <select id="timing">
+        <option value="">None</option>
+        <option>Run-time</option>
+        <option>Build-time</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <label>
+      <input type="checkbox" id="noneToggle" value="noneToggle">
+      No AI (override)
+    </label>
+  </div>
+
+<!-- <button class="primary" onclick="generate()">Generate Badge</button> -->
+
+  <div class="preview" id="preview"></div>
+
+  <div class="card">
+    <strong>SVG Code:</strong>
+    <textarea id="svgOutput"></textarea>
+    <button onclick="copy('svgOutput')">Copy SVG</button>
+  </div>
+
+  <footer>
+    Self-certified • No tracking • No backend
+  </footer>
+
 </div>
-
-<div class="section">
-  <strong>Data Sources:</strong><br>
-  <label><input type="checkbox" value="Model"> Model</label>
-  <label><input type="checkbox" value="Retrieved"> Retrieved</label>
-  <label><input type="checkbox" value="Live"> Live</label>
-  <label><input type="checkbox" value="User"> User</label>
-</div>
-
-<div class="section">
-  <strong>Scope:</strong>
-  <select id="scope">
-    <option value="">None</option>
-    <option>Site-wide</option>
-    <option>Page-specific</option>
-  </select>
-
-  <strong>Timing:</strong>
-  <select id="timing">
-    <option value="">None</option>
-    <option>Runtime</option>
-    <option>Build-time</option>
-  </select>
-</div>
-
-<div class="section">
-  <label>
-    <input type="checkbox" id="noneToggle">
-    No AI (override)
-  </label>
-</div>
-
-<button onclick="generate()">Generate Badge</button>
-
-<div class="preview" id="preview"></div>
-
-<strong>SVG Code:</strong>
-<textarea id="svgOutput"></textarea>
-
-<strong>Text Label:</strong>
-<textarea id="textOutput"></textarea>
 
 <script>
 function generate() {
   const categories = [...document.querySelectorAll('input[type=checkbox]:checked')]
-    .filter(cb => !["Model","Retrieved","Live","User"].includes(cb.value))
+    .filter(cb => !["Model","Datastores","Internet","User", "noneToggle"].includes(cb.value))
     .map(cb => cb.value);
 
   const dataSources = [...document.querySelectorAll('input[type=checkbox]:checked')]
-    .filter(cb => ["Model","Retrieved","Live","User"].includes(cb.value))
+    .filter(cb => ["Model","Datastores","Internet","User"].includes(cb.value))
     .map(cb => cb.value);
 
   const scope = document.getElementById('scope').value;
   const timing = document.getElementById('timing').value;
   const none = document.getElementById('noneToggle').checked;
 
-  let text;
 
-  if (none) {
-    text = "AI: None";
-  } else {
-    let parts = [];
+  let parts = [];
 
-    if (categories.length) {
-      parts.push(categories.join(", "));
-    }
-
-    if (dataSources.length) {
-      parts.push("(" + dataSources.join(", ") + ")");
-    }
-
-    let suffix = [scope, timing].filter(Boolean).join(" · ");
-    if (suffix) parts.push("· " + suffix);
-
-    text = "AI: " + (parts.join(" ") || "Unspecified");
+  if (categories.length == 1) {
+    parts.push(categories.join(", "));
   }
 
-  const rightText = text.replace("AI: ", "") + (none ? "" : " ✓");
+  let suffix = [scope].filter(Boolean).join(" · ");
+  if (suffix) parts.push(suffix);
+
+  const text = parts.join(" · ") || ""
 
   // Dynamic width estimate
-  const width = 40 + rightText.length * 7;
+  const width = 100 + text.length * 40;
 
   const svg = `
-<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="28" role="img" aria-label="${text}">
-<title>${text}</title>
+<svg width="${width*32/100}" height="32" viewBox="0 0 ${width} 100" xmlns="http://www.w3.org/2000/svg">
+  <title>AI Transparency Tag:
+AI ${categories.length ? categories.join(" + ") + " " : ""}was ${none ? 'NOT ' : ''}used to create
+${scope ? scope + " " : ""}elements${dataSources.length ? " using data from\n" : ""}${dataSources.join(", ")}${timing ? " at\n" : ""}${timing}</title>
 
-<rect x="0" y="0" width="40" height="28" fill="#555"/>
-<text x="20" y="18" font-family="system-ui, Arial" font-size="12" fill="#fff" text-anchor="middle">AI</text>
+  <defs>
+    <!-- Background gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#7b2cff"/>
+      <stop offset="50%" stop-color="#3b0a6d"/>
+      <stop offset="100%" stop-color="#020003"/>
+    </radialGradient>
 
-<rect x="40" y="0" width="${width-40}" height="28" fill="${none ? '#fff' : '#4c8bf5'}" ${none ? 'stroke="#555"' : ''}/>
-<text x="${40 + (width-40)/2}" y="18" font-family="system-ui, Arial" font-size="12" fill="${none ? '#333' : '#fff'}" text-anchor="middle">
-${none ? 'None' : rightText}
-</text>
+    <!-- Foreground gradient -->
+    <linearGradient id="fgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#3ef3c2"/>
+      <!-- stop offset="0%" stop-color="#ff7ad9"/ -->
+      <!-- stop offset="100%" stop-color="#3ef3c2"/ -->
+    </linearGradient>
+
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="90" y="0" width="${width-100}" height="100" fill="#666" />
+
+  <!-- Background -->
+  <clipPath id="r">
+      <rect width="100" height="100" rx="27" fill="#000">
+  </clipPath>
+  <rect width="100" height="100" fill="url(#bgGrad)" clip-path="url(#r)" />
+
+  <!-- Foreground group with glow -->
+  <g filter="url(#glow)">
+
+    <!-- AI text -->
+    <text x="50" y="73"
+          text-anchor="middle"
+          font-family="Inter, Arial, sans-serif"
+          font-size="75"
+          font-weight="600"
+          fill="${none ? '#a8f' : 'url(#fgGrad)'}">
+      AI
+    </text>
+
+    <!--- Not present line -->
+    ${none ? '<line x1="5" x2="89" y1="5" y2="89" stroke="url(#fgGrad)" stroke-width="10" stroke-linecap="round" />' : ''}
+
+    <!-- Broken rounded square -->
+    <rect x="5" y="5" width="90" height="90" rx="20"
+          fill="none"
+          stroke="url(#fgGrad)"
+          stroke-width="10"
+          pathLength="100"
+          stroke-dasharray="82 18"
+          stroke-dashoffset="70"
+          stroke-linecap="round"/>
+
+    <text x="${100+(width-110)/2}" y="75"
+          text-anchor="middle"
+          font-family="system-ui, Arial"
+          font-size="70"
+          fill="#fff">
+      ${text}
+    </text>
+  </g>
+
 </svg>`.trim();
 
   document.getElementById('preview').innerHTML = svg;
   document.getElementById('svgOutput').value = svg;
-  document.getElementById('textOutput').value = text;
 }
+
+function copy(id) {
+  const el = document.getElementById(id);
+  el.select();
+  document.execCommand("copy");
+}
+
+// auto-generate on load + change
+document.querySelectorAll("input, select").forEach(el => el.addEventListener("change", generate));
+generate();
 </script>
 
 </body>
