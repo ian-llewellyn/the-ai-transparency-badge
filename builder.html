@@ -199,6 +199,12 @@ function generate() {
 AI ${categories.length ? categories.join(" + ") + " " : ""}was ${none ? 'NOT ' : ''}used to create
 ${scope ? scope + " " : ""}elements${dataSources.length ? " using data from\n" : ""}${dataSources.join(", ")}${timing ? " at\n" : ""}${timing}</title>
 
+  <style>
+text {
+  user-select: none;
+}
+  </style>
+
   <defs>
     <!-- Background gradient -->
     <radialGradient id="bgGrad" cx="50%" cy="30%" r="80%">
