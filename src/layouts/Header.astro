@@ -20,22 +20,23 @@ let pages = [
     "name": "Landscape",
     "url": "landscape"
   },
-]
+];
+
+const current = Astro.url.pathname.substring(1);
 ---
-<style>
-  header {
-    background-color: rgba(0,0,0,0.5);
-  }
-  ul {
-    list-style: none;
-  }
-</style>
 <header>
   <ul class="header">
     {
-    pages.map((page) => (
+    pages.map(page => {
+    const isActive = current === page.url.replace(".", "");
+
+    if ( isActive ) {
+    return (
+    <li><a aria-current="page" href={page.url}>{page.name}</a></li>
+    )} else {
+    return (
     <li><a href={page.url}>{page.name}</a></li>
-    ))
-    }
+    )
+    }})}
   </ul>
 </header>
