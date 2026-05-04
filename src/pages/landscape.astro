@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+
+let alternatives = [
+  {
+    "name": "BadgeAI",
+    "url": "https://www.badgeai.org/",
+    "pros": [
+      "Nice looking badges",
+      "Multi-lingual site",
+      "Neutral / Non-Judgemental"
+    ],
+    "cons": [
+      '<a href="https://www.badgeai.org/futur" target="_blank">Big vision</a>',
+      "Not actively maintained"
+    ]
+  },
+  {
+    "name": "TrueBadge",
+    "url": "https://truebadge.ai",
+    "pros": [],
+    "cons": [
+      "Account required",
+      "Paid service",
+      "Built for agencies and brands"
+    ]
+  },
+  {
+    "name": "AI Honesty Badge",
+    "url": "https://www.aihonestybadge.com",
+    "pros": [
+      "Simple",
+      "One line of code"
+    ],
+    "cons": [
+      "Hues suggest judgement"
+    ]
+  },
+  {
+    "name": "Clear AI Register",
+    "url": "https://clearairegister.com",
+    "pros": [],
+    "cons": [
+      "Account required",
+      "Per-site verification",
+      "Passive judgement"
+    ]
+  },
+]
+---
+
+<BaseLayout>
+<style type="text/css">
+ul.pros li,
+ul.cons li {
+  position: relative;
+  padding-left: 1.5em;
+  list-style: none;
+}
+
+ul.pros li::before,
+ul.cons li::before {
+  position: absolute;
+  left: 0;
+}
+
+ul.pros li::before {
+  content: "✓";
+  color: green;
+}
+
+ul.cons li::before {
+  content: "✕";
+  color: red;
+}
+  </style>
+  <h1>The AI Trasparency Landscape</h1>
+  <h2>EU AI Transparency Act</h2>
+  <h2>Comparrison of the Alternatives</h2>
+  <table>
+    <tr>
+      <th>Alternative</th>
+      <th>Notes</th>
+    </tr>
+    {
+    alternatives.map((alt) => (
+    <tr>
+      <td><a href={alt.url} target="_blank">{alt.name}</a></td>
+      <td>
+        <ul class="pros">
+          {
+          alt.pros.map((pro) => (
+          <li set:html={pro}></li>
+          ))
+          }
+        </ul>
+        <ul class="cons">
+          {
+          alt.cons.map((con) => (
+          <li set:html={con}></li>
+          ))
+          }
+        </ul>
+      </td>
+    </tr>
+    ))
+    }
+  </table>
+</BaseLayout>

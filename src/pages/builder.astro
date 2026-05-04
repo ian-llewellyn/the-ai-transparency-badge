@@ -1,104 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>AI Transparency Badge Generator</title>
-<style>
-  :root {
-    --bg: #f7f7f8;
-    --card: #ffffff;
-    --border: #e2e2e2;
-    --text: #222;
-    --muted: #666;
-  }
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+---
 
-  body {
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    margin: 0;
-  }
-
-  .container {
-    max-width: 760px;
-    margin: 40px auto;
-    padding: 0 16px;
-  }
-
-  h1 {
-    font-size: 26px;
-    margin-bottom: 8px;
-  }
-
-  p.subtitle {
-    color: var(--muted);
-    margin-top: 0;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-
-  label { margin-right: 10px; display: inline-block; }
-
-  .group-title {
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  textarea {
-    width: 100%;
-    height: 120px;
-    font-family: monospace;
-    margin-top: 10px;
-  }
-  .preview {
-    margin-top: 10px;
-    margin-bottom: 16px;
-    padding: 12px;
-    border: 1px dashed var(--border);
-    border-radius: 8px;
-    background: #fafafa;
-    text-align: center;
-  }
-
-  button {
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: #fff;
-  }
-
-  button.primary {
-    background: #4c8bf5;
-    color: white;
-    border: none;
-  }
-
-  .row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  footer {
-    text-align: center;
-    color: var(--muted);
-    margin-top: 40px;
-    font-size: 12px;
-  }
-</style>
-</head>
-<body>
-
-<div class="container">
-
-  <h1>AI Transparency Badge</h1>
+<BaseLayout title="Badge Builder">
+  <h1>The AI Transparency Badge Builder</h1>
   <p class="subtitle">Generate a simple, self-certified AI usage badge for your site.</p>
 
   <div class="card">
@@ -148,8 +53,6 @@
     </label>
   </div>
 
-<!-- <button class="primary" onclick="generate()">Generate Badge</button> -->
-
   <div class="preview" id="preview"></div>
 
   <div class="card">
@@ -157,12 +60,6 @@
     <textarea id="svgOutput"></textarea>
     <button onclick="copy('svgOutput')">Copy SVG</button>
   </div>
-
-  <footer>
-    Self-certified • No tracking • No backend
-  </footer>
-
-</div>
 
 <script>
 function generate() {
@@ -290,6 +187,4 @@ function copy(id) {
 document.querySelectorAll("input, select").forEach(el => el.addEventListener("change", generate));
 generate();
 </script>
-
-</body>
-</html>
+</BaseLayout>

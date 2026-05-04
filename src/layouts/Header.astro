@@ -1,0 +1,41 @@
+---
+let pages = [
+  {
+    "name": "Home",
+    "url": "."
+  },
+  {
+    "name": "Builder",
+    "url": "builder"
+  },
+  {
+    "name": "Badge Details",
+    "url": "details"
+  },
+  {
+    "name": "License",
+    "url": "license"
+  },
+  {
+    "name": "Landscape",
+    "url": "landscape"
+  },
+]
+---
+<style>
+  header {
+    background-color: rgba(0,0,0,0.5);
+  }
+  ul {
+    list-style: none;
+  }
+</style>
+<header>
+  <ul class="header">
+    {
+    pages.map((page) => (
+    <li><a href={page.url}>{page.name}</a></li>
+    ))
+    }
+  </ul>
+</header>

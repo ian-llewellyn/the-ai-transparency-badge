@@ -1,0 +1,9 @@
+---
+const gitSha = ""; //import.meta.env.GIT_SHA;
+const title = "License v" + gitSha;
+import BaseLayout from "../layouts/BaseLayout.astro";
+import License from "../content/license.md";
+---
+<BaseLayout title={title}>
+  <License>
+</BaseLayout>
