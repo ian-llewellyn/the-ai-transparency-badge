@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-The AI Transparency Badge (“the Badge”) is a voluntary, self-certified way to communicate how artificial intelligence is used within a website, application, or service.
+The AI Transparency Badge (“the Badge”) is a voluntary, self-declared disclosure mechanism indicating how artificial intelligence is used within a website, application, or service.
 
 This licence governs the use of the Badge and associated materials.
 
@@ -29,10 +29,10 @@ The Badge is **self-declared**.
 By using the Badge, you agree that:
 
 * The information represented is **accurate to the best of your knowledge**
-* The classification reflects a **reasonable interpretation** of your system
-* You will update the Badge if your usage of AI changes materially
+* The classification reflects a **reasonable interpretation** of your own use of AI within the applicable context
+* You will **update or remove** the Badge **promptly** following any material change in your use of AI that would make the Badge inaccurate or misleading
 
-No formal definition or strict standard is imposed—good faith and clarity are expected.
+The Badge is based on a [general interpretive framework](explainer) published by this project, but final classification is determined by the user in good faith.
 
 ---
 
@@ -40,9 +40,10 @@ No formal definition or strict standard is imposed—good faith and clarity are 
 
 This project:
 
-* Does **not verify**, audit, or certify Badge usage
-* Does **not guarantee** the accuracy of any Badge displayed by third parties
-* Does **not maintain a registry** of valid or approved users
+* Does **not issue or approve** Badge usage at any stage
+* Does **not verify, audit, or certify** the context to which the Badge is applied
+* Does **not guarantee or validate** the accuracy of any Badge displayed by third parties
+* Does **not maintain a registry** of *valid* or *approved* users
 
 All responsibility for correctness lies with the user of the Badge.
 
@@ -74,9 +75,9 @@ The authors and maintainers of this project are **not liable** for:
 
 You may not:
 
-* Use the Badge in a way that is **intentionally misleading or deceptive**
+* Use the Badge to **mislead or deceive** in a way that a reasonable user would be likely to rely upon including through omission or unclear categorisation
 * Represent the Badge as a form of **certification, endorsement, or compliance approval**
-* Imply affiliation with the project beyond use of the Badge itself
+* Imply affiliation with this project beyond use of the Badge itself
 
 ---
 
@@ -91,8 +92,8 @@ Material modification of the Badge (including changes to its meaning, structure,
 
 In such cases:
 
-* Any links to this project’s website or materials should be removed  
-* The modified badge should not imply affiliation with, or endorsement by, this project  
+* Any links to this project’s website or materials should be removed
+* The modified badge should not imply affiliation with, or endorsement by, this project
 
 Minor technical changes (e.g. size, format, or embedding method) are not considered material modifications.
 
@@ -106,7 +107,23 @@ Use of a Badge should be understood to reference the version of the licence avai
 
 ---
 
-## 10. Summary (Non-binding)
+## 10. Nature of Representation
+
+The Badge represents a self-declared statement by the user regarding their use of artificial intelligence.
+
+It does not constitute verification, certification, endorsement, or approval by this project.
+
+Any reliance on the Badge is made solely on the basis of the user’s representation.
+
+---
+
+## 11. No Duty to Monitor or Enforce
+
+This project has no obligation to monitor, enforce, investigate, or act upon any use of the Badge
+
+---
+
+## 12. Summary (Non-binding)
 
 * Free to use
 * Self-declared, not verified
