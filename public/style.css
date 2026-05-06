@@ -249,3 +249,6 @@ footer {
   margin-top: var(--space-l);
   font-size: var(--step--1);
 }
+footer a {
+  text-decoration: underline;
+}
